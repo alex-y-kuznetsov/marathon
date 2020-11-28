@@ -14,7 +14,7 @@
             <th>Email</th>
             <th>Contact Phone</th>
             <th>
-              <span>Preferred Distance</span>
+              <span>Preferred Distance, km</span>
               <button class="table_sorting">
                 <span class="material-icons" v-if="sorting.distanceSorting.direction === 'descending'">south</span>
                 <span class="material-icons" v-else-if="sorting.distanceSorting.direction === 'ascending'">south</span>
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
 export default {
   data () {
@@ -66,9 +67,14 @@ export default {
     }
   },
   watch: {
-    totalUsers () {
+    myState () {
       this.totalUsers = this.$store.state.addedUsers
     }
+  },
+  computed: {
+    ...mapGetters({
+      myState: 'getMyState'
+    })
   },
   created () {
     this.totalUsers = this.$store.state.addedUsers

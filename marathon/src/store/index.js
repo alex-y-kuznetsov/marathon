@@ -18,5 +18,8 @@ export default new Vuex.Store({
   },
   modules: {
   },
+  getters: {
+    getMyState: state => state.addedUsers
+  },
   plugins: [createPersistedState()]
 })

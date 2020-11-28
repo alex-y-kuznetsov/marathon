@@ -25,12 +25,12 @@
                v-model="formValues.phone" v-on:input="maskPhone" />
       </div>
       <div class="input_cover">
-        <label for="distance">Preferred Distance</label>
+        <label for="distance">Preferred Distance, km</label>
         <select name="distance" id="distance" class="form_input"
                 v-model="formValues.distance">
-          <option>3 km</option>
-          <option>5 km</option>
-          <option>10 km</option>
+          <option>3</option>
+          <option>5</option>
+          <option>10</option>
         </select>
       </div>
       <div class="input_cover">
@@ -73,15 +73,10 @@ export default {
     },
     acceptData () {
       const _this = this
-      const promise = new Promise(function (resolve, reject) {
-        _this.$store.commit('addUser', _this.formValues)
-      })
-      function clearFormData () {
-        for (const key in this.formValues) {
-          this.formValues[key] = null
-        }
+      this.$store.commit('addUser', _this.formValues)
+      for (const key in _this.formValues) {
+        _this.formValues[key] = null
       }
-      promise.then(clearFormData)
     }
   },
   computed: {
