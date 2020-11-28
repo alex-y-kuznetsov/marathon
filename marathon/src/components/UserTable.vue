@@ -44,31 +44,34 @@
 </template>
 
 <script>
-import users from '@/data/users.json'
+
 export default {
   data () {
     return {
-      users,
+      totalUsers: [],
       sorting: {
         birthSorting: {
-          bool: true,
+          isSorting: true,
           direction: 'descending'
         },
         distanceSorting: {
-          bool: false,
+          isSorting: false,
           direction: 'descending'
         },
         donationSorting: {
-          bool: false,
+          isSorting: false,
           direction: 'descending'
         }
       }
     }
   },
-  computed: {
+  watch: {
     totalUsers () {
-      return users.users.concat(this.$store.state.addedUsers)
+      this.totalUsers = this.$store.state.addedUsers
     }
+  },
+  created () {
+    this.totalUsers = this.$store.state.addedUsers
   }
 }
 </script>
