@@ -1,0 +1,31 @@
+{
+	"users": [
+		{
+			"id": 1,
+			"birth": "11.03.1987",
+			"username": "Куклина Мария Ивановна",
+			"email": "kyklina@mail.ru",
+			"phone": "+79223625999",
+			"distance": 5,
+			"donation": 500
+		},
+		{
+			"id": 2,
+			"birth": "8.05.1997",
+			"username": "Мокрушина Галина Юрьевна",
+			"email": "mokrushina@mail.ru",
+			"phone": "+79881125999",
+			"distance": 10,
+			"donation": 300
+		},
+		{
+			"id": 3,
+			"birth": "24.01.1886",
+			"username": "Ольга Сергеевна Заводская",
+			"email": "olga.zavodckaia@mail.ru",
+			"phone": "+79008011000",
+			"distance": 3,
+			"donation": 1500
+		}
+	]
+}
