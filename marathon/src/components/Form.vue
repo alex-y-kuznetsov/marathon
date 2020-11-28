@@ -27,7 +27,7 @@
       <div class="input_cover">
         <label for="distance">Preferred Distance, km</label>
         <select name="distance" id="distance" class="form_input"
-                v-model="formValues.distance">
+                v-model.number="formValues.distance">
           <option>3</option>
           <option>5</option>
           <option>10</option>
@@ -36,7 +36,7 @@
       <div class="input_cover">
         <label for="donation">Donation</label>
         <input type="number" name="donation" id="donation" class="form_input"
-               v-model="formValues.donation" />
+               v-model.number="formValues.donation" />
       </div>
       <div class="form_controls">
         <span v-if="needToCheckEmail">Please enter a valid email</span>

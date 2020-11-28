@@ -36,7 +36,7 @@
             <td>{{ user.email }}</td>
             <td>{{ user.phone }}</td>
             <td>{{ user.distance }}</td>
-            <td>{{ user.donation }}</td>
+            <td>{{ user.donation | numberFormat }}</td>
           </tr>
         </tbody>
       </table>
@@ -45,8 +45,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import numberFormat from '@/helpers/filters/numberFormat'
 
 export default {
+  filters: { numberFormat },
   data () {
     return {
       totalUsers: [],
