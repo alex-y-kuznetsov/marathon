@@ -1,20 +1,23 @@
 <template>
-  <form>
+  <form v-on:submit.prevent="acceptData" novalidate="true">
     <h1>
       Welcome to our charity marathon. Please fill in the folowing information
     </h1>
     <div class="form_fields">
       <div class="input_cover">
         <label for="username">Full Name</label>
-        <input type="text" name="username" id="username" class="form_input" />
+        <input type="text" name="username" id="username" class="form_input"
+               v-model="formValues.username"/>
       </div>
       <div class="input_cover">
         <label for="birth">Date of Birth</label>
-        <input type="date" name="birth" id="birth" class="form_input" />
+        <input type="date" name="birth" id="birth" class="form_input"
+               v-model="formValues.birth"/>
       </div>
       <div class="input_cover">
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" class="form_input" />
+        <input type="email" name="email" id="email" class="form_input"
+               v-model="formValues.email"/>
       </div>
       <div class="input_cover">
         <label for="phone">Contact Phone</label>
@@ -23,7 +26,8 @@
       </div>
       <div class="input_cover">
         <label for="distance">Preferred Distance</label>
-        <select name="distance" id="distance" class="form_input">
+        <select name="distance" id="distance" class="form_input"
+                v-model="formValues.distance">
           <option>3 km</option>
           <option>5 km</option>
           <option>10 km</option>
@@ -31,7 +35,12 @@
       </div>
       <div class="input_cover">
         <label for="donation">Donation</label>
-        <input type="number" name="donation" id="donation" class="form_input" />
+        <input type="number" name="donation" id="donation" class="form_input"
+               v-model="formValues.donation" />
+      </div>
+      <div class="form_controls">
+        <span v-if="!formReady">Please fill in all fields</span>
+        <button class="submit_data" v-bind:disabled="!formReady">Submit Data</button>
       </div>
     </div>
   </form>
@@ -42,19 +51,38 @@ export default {
   data () {
     return {
       formValues: {
-        username: '',
+        username: null,
         birth: null,
-        email: '',
-        phone: '',
+        email: null,
+        phone: null,
         distance: null,
         donation: null
-      }
+      },
+      formReady: false
     }
   },
   methods: {
     maskPhone () {
       var x = this.formValues.phone.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)
       this.formValues.phone = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '')
+    },
+    validateEmail (email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      return re.test(email)
+    },
+    acceptData () {
+      console.log(this.formValues)
+    }
+  },
+  watch: {
+    formValues: {
+      handler () {
+        Object.keys(this.formValues).find(key => this.formValues[key] === null) ||
+        Object.keys(this.formValues).find(key => this.formValues[key] === '') ||
+        !this.validateEmail(this.formValues.email)
+          ? this.formReady = false : this.formReady = true
+      },
+      deep: true
     }
   }
 }
@@ -92,5 +120,17 @@ select.form_input {
 }
 select.form_input:focus {
   border-radius: 5px 5px 0 0;
+}
+.form_controls {
+  margin: 20px 10px 0 auto;
+}
+.submit_data {
+    height: 34px;
+    width: 180px;
+    background-color: transparent;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 20px;
 }
 </style>
