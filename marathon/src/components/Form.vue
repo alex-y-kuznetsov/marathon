@@ -72,10 +72,16 @@ export default {
       return re.test(email)
     },
     acceptData () {
-      this.$store.commit('addUser', this.formValues)
-      // for (const key in this.formValues) {
-      //   this.formValues[key] = null
-      // }
+      const _this = this
+      const promise = new Promise(function (resolve, reject) {
+        _this.$store.commit('addUser', _this.formValues)
+      })
+      function clearFormData () {
+        for (const key in this.formValues) {
+          this.formValues[key] = null
+        }
+      }
+      promise.then(clearFormData)
     }
   },
   computed: {
