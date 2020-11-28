@@ -35,7 +35,7 @@
       </div>
       <div class="input_cover">
         <label for="donation">Donation</label>
-        <input type="number" name="donation" id="donation" class="form_input"
+        <input type="number" name="donation" id="donation" class="form_input" min="1"
                v-model.number="formValues.donation" />
       </div>
       <div class="form_controls">
@@ -65,6 +65,7 @@ export default {
       return re.test(email)
     },
     acceptData () {
+      this.formValues.birth = this.formValues.birth.slice(8, 10) + '.' + this.formValues.birth.slice(5, 7) + '.' + this.formValues.birth.slice(0, 4)
       this.$store.commit('addUser', this.formValues)
       this.formValues = {}
     }
