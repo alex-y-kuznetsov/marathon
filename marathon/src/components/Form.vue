@@ -51,14 +51,7 @@
 export default {
   data () {
     return {
-      formValues: {
-        username: null,
-        birth: null,
-        email: null,
-        phone: null,
-        distance: null,
-        donation: null
-      },
+      formValues: {},
       formReady: false
     }
   },
@@ -72,11 +65,8 @@ export default {
       return re.test(email)
     },
     acceptData () {
-      const _this = this
-      this.$store.commit('addUser', _this.formValues)
-      for (const key in _this.formValues) {
-        _this.formValues[key] = null
-      }
+      this.$store.commit('addUser', this.formValues)
+      this.formValues = {}
     }
   },
   computed: {
