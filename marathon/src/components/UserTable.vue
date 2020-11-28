@@ -68,38 +68,47 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
   .table_cover {
     padding: 50px;
   }
+
   .users_table {
     width: 100%;
     border-collapse: collapse;
   }
+
   .table_head_row {
     background-color: #d1fdfd;
   }
+
   th, td {
     text-align: left;
     padding: 10px;
     border: 1px solid #867e7e;
   }
+
   th {
     white-space: nowrap;
   }
+
   .table_sorting {
     background-color: transparent;
     border: none;
     cursor: pointer;
-  }
-  .table_sorting:focus {
-    outline: none;
-  }
-  .table_sorting:focus .material-icons {
-    color: #f72d8a;
-  }
-  .table_sorting .material-icons {
+
+    .material-icons {
     font-size: 16px;
     vertical-align: middle;
   }
+
+    &:focus {
+      outline: none;
+
+      .material-icons {
+        color: #f72d8a;
+      }
+    }
+  }
+
 </style>

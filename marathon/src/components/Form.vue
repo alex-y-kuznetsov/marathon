@@ -98,7 +98,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang="less">
 .form_fields {
   display: flex;
   flex-wrap: wrap;
@@ -107,16 +107,19 @@ export default {
   margin: 0 auto;
   box-sizing: border-box;
 }
+
 .input_cover {
   margin: 0 10px 10px 0;
   width: 180px;
+
+    label {
+    display: block;
+    text-align: left;
+    font-size: 14px;
+    padding: 0 0 4px 4px;
+  }
 }
-.input_cover label {
-  display: block;
-  text-align: left;
-  font-size: 14px;
-  padding: 0 0 4px 4px;
-}
+
 .form_input {
   width: 100%;
   box-sizing: border-box;
@@ -124,16 +127,26 @@ export default {
   border-radius: 5px;
   border: 1px solid #000000;
   padding: 5px;
+
+  &:focus {
+    outline: none;
+    border-color: #867e7e;
+    box-shadow: inset 0 0 4px 0 #867e7e;
+  }
 }
+
 select.form_input {
   cursor: pointer;
+
+    &:focus {
+    border-radius: 5px 5px 0 0;
+  }
 }
-select.form_input:focus {
-  border-radius: 5px 5px 0 0;
-}
+
 .form_controls {
   margin: 20px 10px 0 auto;
 }
+
 .submit_data {
     height: 34px;
     width: 180px;
