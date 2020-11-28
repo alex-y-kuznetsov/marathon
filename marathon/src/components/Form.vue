@@ -39,7 +39,8 @@
                v-model="formValues.donation" />
       </div>
       <div class="form_controls">
-        <span v-if="!formReady">Please fill in all fields</span>
+        <span v-if="needToCheckEmail">Please enter a valid email</span>
+        <span v-else-if="!formReady && !needToCheckEmail">Please fill in all fields</span>
         <button class="submit_data" v-bind:disabled="!formReady">Submit Data</button>
       </div>
     </div>
@@ -72,6 +73,13 @@ export default {
     },
     acceptData () {
       console.log(this.formValues)
+    }
+  },
+  computed: {
+    needToCheckEmail () {
+      return !Object.keys(this.formValues).find(key => this.formValues[key] === null) &&
+        !Object.keys(this.formValues).find(key => this.formValues[key] === '') &&
+        !this.validateEmail(this.formValues.email)
     }
   },
   watch: {
@@ -128,7 +136,8 @@ select.form_input:focus {
     height: 34px;
     width: 180px;
     background-color: transparent;
-    border: 1px solid #000000;
+    background-color: #d1fdfd;
+    border: 1px solid #867e7e;
     border-radius: 5px;
     cursor: pointer;
     margin-left: 20px;
