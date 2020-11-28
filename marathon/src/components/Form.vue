@@ -72,7 +72,9 @@ export default {
       return re.test(email)
     },
     acceptData () {
-      console.log(this.formValues)
+      for (const key in this.formValues) {
+        this.formValues[key] = null
+      }
     }
   },
   computed: {
