@@ -72,9 +72,10 @@ export default {
       return re.test(email)
     },
     acceptData () {
-      for (const key in this.formValues) {
-        this.formValues[key] = null
-      }
+      this.$store.commit('addUser', this.formValues)
+      // for (const key in this.formValues) {
+      //   this.formValues[key] = null
+      // }
     }
   },
   computed: {

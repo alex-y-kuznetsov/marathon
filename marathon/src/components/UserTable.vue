@@ -30,7 +30,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="table_body_row" v-for="user in users.users" v-bind:key="user.id">
+          <tr class="table_body_row" v-for="user in totalUsers" v-bind:key="user.id">
             <td>{{ user.username }}</td>
             <td>{{ user.birth }}</td>
             <td>{{ user.email }}</td>
@@ -63,6 +63,11 @@ export default {
           direction: 'descending'
         }
       }
+    }
+  },
+  computed: {
+    totalUsers () {
+      return users.users.concat(this.$store.state.addedUsers)
     }
   }
 }
