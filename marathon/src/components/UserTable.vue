@@ -40,7 +40,7 @@
           </tr>
         </tbody>
       </table>
-      <div class="pagination">
+      <div class="pagination" v-if="totalPages > 1">
         <span class="pagination_pages">Page {{ pageNumber + 1 }} of {{ totalPages }}</span>
         <button class="page_button"
                 v-on:click.prevent="prevPage()"
