@@ -41,6 +41,7 @@
         </tbody>
       </table>
       <div class="pagination">
+        <span class="pagination_pages">Page {{ pageNumber + 1 }} of {{ totalPages }}</span>
         <button class="page_button"
                 v-on:click.prevent="prevPage()"
                 v-bind:disabled="pageNumber === 0">
@@ -221,6 +222,12 @@ export default {
     margin-top: auto;
   }
 
+  .pagination_pages {
+    vertical-align: middle;
+    margin-right: 10px;
+    line-height: 35px;
+  }
+
   .page_button {
     height: 34px;
     background-color: #d1fdfd;
@@ -232,8 +239,8 @@ export default {
       vertical-align: middle;
     }
 
-    &:first-child {
-      margin-right: 10px;
+    &:last-child {
+      margin-left: 10px;
     }
 
     &:disabled {
