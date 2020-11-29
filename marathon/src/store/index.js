@@ -11,7 +11,7 @@ export default new Vuex.Store({
   },
   mutations: {
     addUser (state, addedUser) {
-      state.addedUsers.push(addedUser)
+      state.addedUsers.unshift(addedUser)
     }
   },
   actions: {

@@ -51,7 +51,14 @@
 export default {
   data () {
     return {
-      formValues: {},
+      formValues: {
+        birth: null,
+        distance: null,
+        donation: null,
+        email: null,
+        phone: null,
+        username: null
+      },
       formReady: false
     }
   },
@@ -67,7 +74,14 @@ export default {
     acceptData () {
       this.formValues.birth = this.formValues.birth.slice(8, 10) + '.' + this.formValues.birth.slice(5, 7) + '.' + this.formValues.birth.slice(0, 4)
       this.$store.commit('addUser', this.formValues)
-      this.formValues = {}
+      this.formValues = {
+        birth: null,
+        distance: null,
+        donation: null,
+        email: null,
+        phone: null,
+        username: null
+      }
     }
   },
   computed: {
