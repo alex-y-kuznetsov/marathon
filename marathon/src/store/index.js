@@ -12,6 +12,7 @@ export default new Vuex.Store({
   mutations: {
     addUser (state, addedUser) {
       state.addedUsers.unshift(addedUser)
+      addedUser.new = true
     }
   },
   actions: {

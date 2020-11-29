@@ -6,31 +6,31 @@
             <th>Name</th>
             <th>
               <span>Date of Birth</span>
-              <button class="table_sorting">
-                <span class="material-icons" v-if="sorting.birthSorting.direction === 'descending'">south</span>
-                <span class="material-icons" v-else-if="sorting.birthSorting.direction === 'ascending'">south</span>
+              <button class="table_sorting" v-on:click.prevent="sortTable('birth', false)">
+                <span class="material-icons" v-if="sorting.birth.direction === 'descending'">north</span>
+                <span class="material-icons" v-else-if="sorting.birth.direction === 'ascending'">south</span>
               </button>
             </th>
             <th>Email</th>
             <th>Contact Phone</th>
             <th>
               <span>Preferred Distance, km</span>
-              <button class="table_sorting">
-                <span class="material-icons" v-if="sorting.distanceSorting.direction === 'descending'">south</span>
-                <span class="material-icons" v-else-if="sorting.distanceSorting.direction === 'ascending'">south</span>
+              <button class="table_sorting" v-on:click.prevent="sortTable('distance', false)">
+                <span class="material-icons" v-if="sorting.distance.direction === 'descending'">north</span>
+                <span class="material-icons" v-else-if="sorting.distance.direction === 'ascending'">south</span>
               </button>
             </th>
             <th>
               <span>Donation</span>
-              <button class="table_sorting">
-                <span class="material-icons" v-if="sorting.donationSorting.direction === 'descending'">south</span>
-                <span class="material-icons" v-else-if="sorting.donationSorting.direction === 'ascending'">south</span>
+              <button class="table_sorting" v-on:click.prevent="sortTable('donation', false)">
+                <span class="material-icons" v-if="sorting.donation.direction === 'descending'">north</span>
+                <span class="material-icons" v-else-if="sorting.donation.direction === 'ascending'">south</span>
               </button>
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr class="table_body_row" v-for="user in totalUsers" v-bind:key="user.id">
+          <tr class="table_body_row" v-bind:class="{ new: user.new }" v-for="user in totalUsers" v-bind:key="user.id">
             <td>{{ user.username }}</td>
             <td>{{ user.birth }}</td>
             <td>{{ user.email }}</td>
@@ -53,18 +53,55 @@ export default {
     return {
       totalUsers: [],
       sorting: {
-        birthSorting: {
-          isSorting: true,
+        birth: {
           direction: 'descending'
         },
-        distanceSorting: {
-          isSorting: false,
+        distance: {
           direction: 'descending'
         },
-        donationSorting: {
-          isSorting: false,
+        donation: {
           direction: 'descending'
         }
+      }
+    }
+  },
+  methods: {
+    sortTable (column, isDefault) {
+      if (!isDefault) {
+        if (this.sorting[column].direction === 'descending') {
+          this.totalUsers.sort(function (a, b) {
+            if (a[column] > b[column]) {
+              return 1
+            }
+            if (a[column] < b[column]) {
+              return -1
+            }
+            return 0
+          })
+          this.sorting[column].direction = 'ascending'
+        } else {
+          this.totalUsers.sort(function (a, b) {
+            if (b[column] > a[column]) {
+              return 1
+            }
+            if (b[column] < a[column]) {
+              return -1
+            }
+            return 0
+          })
+          this.sorting[column].direction = 'descending'
+        }
+      } else {
+        this.totalUsers.sort(function (a, b) {
+          if (a[column] > b[column]) {
+            return 1
+          }
+          if (a[column] < b[column]) {
+            return -1
+          }
+          return 0
+        })
+        this.sorting[column].direction = 'ascending'
       }
     }
   },
@@ -80,6 +117,10 @@ export default {
   },
   created () {
     this.totalUsers = this.$store.state.addedUsers
+    this.sortTable('birth', true)
+    this.totalUsers.filter(user => user.new).forEach(function (userNew) {
+      userNew.new = false
+    })
   }
 }
 </script>
@@ -96,6 +137,10 @@ export default {
 
   .table_head_row {
     background-color: #d1fdfd;
+  }
+
+  .new {
+    background-color: #71f1b7;
   }
 
   th, td {
