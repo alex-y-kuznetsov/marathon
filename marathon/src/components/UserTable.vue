@@ -30,7 +30,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="table_body_row" v-bind:class="{ new: user.new }" v-for="user in totalUsers" v-bind:key="user.id">
+          <tr class="table_body_row" v-bind:class="{ new: user.new }" v-for="user in shownUsers" v-bind:key="user.id">
             <td>{{ user.username }}</td>
             <td>{{ getDisplayDate(user.birth) }}</td>
             <td>{{ user.email }}</td>
@@ -40,6 +40,18 @@
           </tr>
         </tbody>
       </table>
+      <div class="pagination">
+        <button class="page_button"
+                v-on:click.prevent="prevPage()"
+                v-bind:disabled="pageNumber === 0">
+                <span class="material-icons">arrow_back</span>
+        </button>
+        <button class="page_button"
+                v-on:click.prevent="nextPage()"
+                v-bind:disabled="pageNumber >= totalPages - 1">
+                <span class="material-icons">arrow_forward</span>
+        </button>
+      </div>
     </div>
 </template>
 
@@ -52,6 +64,9 @@ export default {
   data () {
     return {
       totalUsers: [],
+      shownUsers: [],
+      perPage: 4,
+      pageNumber: 0,
       sorting: {
         dateForSorting: {
           direction: 'descending'
@@ -66,6 +81,19 @@ export default {
     }
   },
   methods: {
+    paginate () {
+      const start = this.pageNumber * this.perPage
+      const end = start + this.perPage
+      this.shownUsers = this.totalUsers.slice(start, end)
+    },
+    nextPage () {
+      this.pageNumber++
+      this.paginate()
+    },
+    prevPage () {
+      this.pageNumber--
+      this.paginate()
+    },
     getDisplayDate (field) {
       return field.slice(8, 10) + '.' + field.slice(5, 7) + '.' + field.slice(0, 4)
     },
@@ -111,12 +139,16 @@ export default {
   watch: {
     myState () {
       this.totalUsers = this.$store.state.addedUsers
+      this.paginate()
     }
   },
   computed: {
     ...mapGetters({
       myState: 'getMyState'
-    })
+    }),
+    totalPages () {
+      return Math.ceil(this.totalUsers.length / this.perPage)
+    }
   },
   created () {
     this.totalUsers = this.$store.state.addedUsers
@@ -127,6 +159,7 @@ export default {
     this.totalUsers.forEach(function (user) {
       user.dateForSorting = new Date(user.birth)
     })
+    this.paginate()
   }
 }
 </script>
@@ -134,6 +167,10 @@ export default {
 <style scoped lang="less">
   .table_cover {
     padding: 50px;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
   }
 
   .users_table {
@@ -175,6 +212,37 @@ export default {
       .material-icons {
         color: #f72d8a;
       }
+    }
+  }
+
+  .pagination {
+    padding: 20px 0;
+    text-align: right;
+    margin-top: auto;
+  }
+
+  .page_button {
+    height: 34px;
+    background-color: #d1fdfd;
+    border: 1px solid #867e7e;
+    border-radius: 5px;
+    cursor: pointer;
+
+    .material-icons {
+      vertical-align: middle;
+    }
+
+    &:first-child {
+      margin-right: 10px;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 1px 1px #cccccc;
     }
   }
 </style>

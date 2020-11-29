@@ -158,11 +158,19 @@ select.form_input {
 .submit_data {
     height: 34px;
     width: 180px;
-    background-color: transparent;
     background-color: #d1fdfd;
     border: 1px solid #867e7e;
     border-radius: 5px;
     cursor: pointer;
     margin-left: 20px;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 1px 1px #cccccc;
+    }
 }
 </style>
