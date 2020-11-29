@@ -13,6 +13,7 @@ export default new Vuex.Store({
     addUser (state, addedUser) {
       state.addedUsers.unshift(addedUser)
       addedUser.new = true
+      addedUser.dateForSorting = new Date(addedUser.birth)
     }
   },
   actions: {

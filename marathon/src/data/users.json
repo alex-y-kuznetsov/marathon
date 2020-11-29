@@ -2,7 +2,7 @@
 	"users": [
 		{
 			"id": 1,
-			"birth": "11.03.1987",
+			"birth": "1987-03-11",
 			"username": "Куклина Мария Ивановна",
 			"email": "kyklina@mail.ru",
 			"phone": "+79223625999",
@@ -11,7 +11,7 @@
 		},
 		{
 			"id": 2,
-			"birth": "08.05.1997",
+			"birth": "1997-05-08",
 			"username": "Мокрушина Галина Юрьевна",
 			"email": "mokrushina@mail.ru",
 			"phone": "+79881125999",
@@ -20,7 +20,7 @@
 		},
 		{
 			"id": 3,
-			"birth": "24.01.1886",
+			"birth": "1886-01-24",
 			"username": "Ольга Сергеевна Заводская",
 			"email": "olga.zavodckaia@mail.ru",
 			"phone": "+79008011000",

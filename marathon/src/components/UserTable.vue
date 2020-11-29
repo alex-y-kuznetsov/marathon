@@ -6,9 +6,9 @@
             <th>Name</th>
             <th>
               <span>Date of Birth</span>
-              <button class="table_sorting" v-on:click.prevent="sortTable('birth', false)">
-                <span class="material-icons" v-if="sorting.birth.direction === 'descending'">north</span>
-                <span class="material-icons" v-else-if="sorting.birth.direction === 'ascending'">south</span>
+              <button class="table_sorting" v-on:click.prevent="sortTable('dateForSorting', false)">
+                <span class="material-icons" v-if="sorting.dateForSorting.direction === 'descending'">north</span>
+                <span class="material-icons" v-else-if="sorting.dateForSorting.direction === 'ascending'">south</span>
               </button>
             </th>
             <th>Email</th>
@@ -32,7 +32,7 @@
         <tbody>
           <tr class="table_body_row" v-bind:class="{ new: user.new }" v-for="user in totalUsers" v-bind:key="user.id">
             <td>{{ user.username }}</td>
-            <td>{{ user.birth }}</td>
+            <td>{{ getDisplayDate(user.birth) }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.phone }}</td>
             <td>{{ user.distance }}</td>
@@ -53,7 +53,7 @@ export default {
     return {
       totalUsers: [],
       sorting: {
-        birth: {
+        dateForSorting: {
           direction: 'descending'
         },
         distance: {
@@ -66,6 +66,9 @@ export default {
     }
   },
   methods: {
+    getDisplayDate (field) {
+      return field.slice(8, 10) + '.' + field.slice(5, 7) + '.' + field.slice(0, 4)
+    },
     sortTable (column, isDefault) {
       if (!isDefault) {
         if (this.sorting[column].direction === 'descending') {
@@ -117,9 +120,12 @@ export default {
   },
   created () {
     this.totalUsers = this.$store.state.addedUsers
-    this.sortTable('birth', true)
+    this.sortTable('dateForSorting', true)
     this.totalUsers.filter(user => user.new).forEach(function (userNew) {
       userNew.new = false
+    })
+    this.totalUsers.forEach(function (user) {
+      user.dateForSorting = new Date(user.birth)
     })
   }
 }

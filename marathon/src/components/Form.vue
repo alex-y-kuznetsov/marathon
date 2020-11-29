@@ -72,7 +72,6 @@ export default {
       return re.test(email)
     },
     acceptData () {
-      this.formValues.birth = this.formValues.birth.slice(8, 10) + '.' + this.formValues.birth.slice(5, 7) + '.' + this.formValues.birth.slice(0, 4)
       this.$store.commit('addUser', this.formValues)
       this.formValues = {
         birth: null,
